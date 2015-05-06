@@ -1,5 +1,6 @@
 package ru.gubber.query.filter;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class FakeFilter extends AbstractFilter {
 
-    private final static Logger logger = Logger.getLogger(FakeFilter.class);
+    private final static Logger logger = LogManager.getLogger(FakeFilter.class);
 
     public List getValues() {
         return Collections.singletonList(new Integer(1));

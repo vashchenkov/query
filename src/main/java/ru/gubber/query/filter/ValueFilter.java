@@ -1,6 +1,6 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.type.Type;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  */
 public class ValueFilter extends AbstractFilter {
-    private static Logger logger = Logger.getLogger(ValueFilter.class);
+    private static Logger logger = LogManager.getLogger(ValueFilter.class);
     protected String alias = PagedList.ALIAS;
     protected ArrayList values = new ArrayList();
     protected Type type;
@@ -65,7 +65,7 @@ public class ValueFilter extends AbstractFilter {
             int indx =0;
             while (i.hasNext()) {
                 i.next();
-                filterNames[indx] = ":filter_"+(filterCount + indx);
+                filterNames[indx] = ":"+FiltersConstans.ATTRIBUTE_PREFIX+(filterCount + indx);
                 sb.append(filterNames[indx++]);
                 if (i.hasNext()) {
                     sb.append(", ");
@@ -73,7 +73,8 @@ public class ValueFilter extends AbstractFilter {
             }
             sb.append(")");
         }
-        if (logger.getLevel() == Level.DEBUG)
+        sb.append(")");
+        if (logger.isDebugEnabled())
             logger.debug("where condition = " + sb.toString());
 
         return filterNames.length;
@@ -83,7 +84,10 @@ public class ValueFilter extends AbstractFilter {
         Iterator i = values.iterator();
         while (i.hasNext()) {
             Object value = i.next();
-            query.setParameter("filter_"+(start++), value, type);
+            if (logger.isDebugEnabled()) {
+                logger.debug("set " + FiltersConstans.ATTRIBUTE_PREFIX + (start) + "=" + value + ".Type is " + type.getClass().getName());
+            }
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX + (start++), value, type);
         }
         return values.size();
     }

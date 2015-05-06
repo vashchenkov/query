@@ -1,6 +1,6 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class NegationFilter extends AbstractFilter {
 
-    private final Logger logger = Logger.getLogger(NegationFilter.class);
+    private final Logger logger = LogManager.getLogger(NegationFilter.class);
     /**
      * Фильтр операцию значение которого надо обратить
      */
@@ -40,7 +40,7 @@ public class NegationFilter extends AbstractFilter {
         filterCount = filterCount + filter.appendFilterCondition(sb, filterCount);
         sb.append(")");
 
-        if (logger.getLevel() == Level.DEBUG)
+        if (logger.isDebugEnabled())
             logger.debug("where condition = " + sb.toString());
 
         return filterCount;

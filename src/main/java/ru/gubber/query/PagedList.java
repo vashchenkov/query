@@ -1,5 +1,6 @@
 package ru.gubber.query;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
@@ -18,7 +19,7 @@ import java.util.List;
  * Управляет выборкой объектов с возможностью постраничного разбиения, сортировки и фильтрации.
  */
 public class PagedList {
-    private static Logger logger = Logger.getLogger(PagedList.class);
+    private static Logger logger = LogManager.getLogger(PagedList.class);
 
     public static final String ALIAS = "foo";
     protected Class classToQuery;
@@ -39,13 +40,18 @@ public class PagedList {
     }
 
     public Collection getItems(Session session) throws HibernateException, JDBCException {
-        Query query = getQuery(session);
-        List items = new ArrayList();
-        if (query != null) {
-            items = query.list();
+        try {
+            Query query = getQuery(session);
+            List items = new ArrayList();
+            if (query != null) {
+                items = query.list();
+            }
+            updateTotalSize(session);
+            return sorter.sort(items);
+        } catch (Throwable e) {
+            logger.debug(e, e);
+            throw e;
         }
-        updateTotalSize(session);
-        return sorter.sort(items);
     }
 
     public int getPageCount() {
@@ -109,20 +115,25 @@ public class PagedList {
      * и апдейтит текущую страницу (проверяет на выход за границу)
      */
     protected void updateTotalSize(Session session) throws HibernateException, JDBCException {
-        StringBuilder sb = new StringBuilder("SELECT COUNT(").append(ALIAS).append(")").append(getQueryFrom());
-        if (!filter.isEmpty()) {
-            sb = sb.append(" WHERE ");
-            filter.appendFilterCondition(sb, 0);
-        }
-        Query query = session.createQuery(sb.toString());
-        filter.fillParameters(query, 0);
+        try {
+            StringBuilder sb = new StringBuilder("SELECT COUNT(").append(ALIAS).append(")").append(getQueryFrom());
+            if (!filter.isEmpty()) {
+                sb = sb.append(" WHERE ");
+                filter.appendFilterCondition(sb, 0);
+            }
+            Query query = session.createQuery(sb.toString());
+            filter.fillParameters(query, 0);
 
-        Iterator i = query.list().iterator();
-        if (i.hasNext()) {
-            counter.setItemCount(((Long) i.next()).intValue());
-        }
-        if (currentPage > counter.getItemCount() / counter.getItemsPerPage()) {
-            currentPage = counter.getItemCount() / counter.getItemsPerPage();
+            Iterator i = query.list().iterator();
+            if (i.hasNext()) {
+                counter.setItemCount(((Long) i.next()).intValue());
+            }
+            if (currentPage > counter.getItemCount() / counter.getItemsPerPage()) {
+                currentPage = counter.getItemCount() / counter.getItemsPerPage();
+            }
+        } catch (Throwable e) {
+            logger.debug(e, e);
+            throw e;
         }
     }
 

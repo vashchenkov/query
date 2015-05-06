@@ -1,5 +1,6 @@
 package ru.gubber.query.filter;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
@@ -7,7 +8,7 @@ import org.hibernate.Query;
  * Like фильтр
  */
 public class LikeStringFilter extends SubstringFilter {
-    private static Logger logger = Logger.getLogger(LikeStringFilter.class);
+    private static Logger logger = LogManager.getLogger(LikeStringFilter.class);
 
     public LikeStringFilter(String fieldName, String value) {
         super(fieldName, value);
@@ -16,7 +17,7 @@ public class LikeStringFilter extends SubstringFilter {
     public int fillParameters(Query query, int start) {
         if (isEmpty()) return 0;
         //logger.debug("parameter" + start + ": value = " + value);
-        query.setParameter("filter_"+(start++), value, type);
+        query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX+(start++), value, type);
         return 1;
     }
 }

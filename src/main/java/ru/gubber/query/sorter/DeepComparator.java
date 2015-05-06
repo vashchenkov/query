@@ -5,13 +5,14 @@
  */
 package ru.gubber.query.sorter;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Method;
 import java.util.Comparator;
 
 class DeepComparator implements Comparator {
-    private static Logger logger = Logger.getLogger(DeepComparator.class);
+    private static Logger logger = LogManager.getLogger(DeepComparator.class);
 
     private Class classToSort;
     private String attributeName;

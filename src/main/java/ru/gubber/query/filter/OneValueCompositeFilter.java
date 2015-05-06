@@ -4,7 +4,6 @@ import org.hibernate.Query;
 import org.hibernate.type.Type;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

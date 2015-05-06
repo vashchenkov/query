@@ -1,6 +1,6 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class CompositeFilter extends AbstractFilter {
 
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger logger = LogManager.getLogger(getClass());
     /**
      * Указывает логический оператор между всемя фильтрами входящими в данный множественный фильтр
      */
@@ -153,7 +153,7 @@ public class CompositeFilter extends AbstractFilter {
             first = first && filter.isEmpty();
         }
         sb.append(")");
-        if (logger.getLevel() == Level.DEBUG)
+        if (logger.isDebugEnabled())
             logger.debug("where condition = " + sb.toString());
         return filterCount;
     }

@@ -1,5 +1,6 @@
 package ru.gubber.query;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
@@ -20,7 +21,7 @@ import java.util.List;
  * {@link ru.gubber.query.ClassTree}
  */
 public class PagedListByTree extends PagedList {
-    private static Logger logger = Logger.getLogger(PagedListByTree.class);
+    private static Logger logger = LogManager.getLogger(PagedListByTree.class);
 
     /**
      * Алиас головного класса

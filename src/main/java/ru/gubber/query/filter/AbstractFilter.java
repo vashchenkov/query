@@ -1,12 +1,13 @@
 package ru.gubber.query.filter;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import ru.gubber.query.PagedList;
 
 /**
  */
 public abstract class AbstractFilter implements Filter {
-    private static Logger logger = Logger.getLogger(AbstractFilter.class);
+    private static Logger logger = LogManager.getLogger(AbstractFilter.class);
 
     private boolean mandatory;
 

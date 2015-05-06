@@ -1,6 +1,6 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.type.StandardBasicTypes;
@@ -15,7 +15,7 @@ import java.util.List;
  * Класс реализующий фильтр по подстроке
  */
 public class SubstringFilter extends AbstractFilter implements SingleFilter {
-    private static Logger logger = Logger.getLogger(SubstringFilter.class);
+    private static Logger logger = LogManager.getLogger(SubstringFilter.class);
     protected String alias = PagedList.ALIAS;
     protected String value = null;
     protected Type type = StandardBasicTypes.STRING;
@@ -53,15 +53,14 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
     }
 
     public int appendFilterCondition(StringBuilder sb, int filterCount) {
-//        StringBuilder sb = new StringBuilder();
         if (isEmpty())
             return 0;
         filterNames = new String[]{
-                "filter_"+ (filterCount)
+                FiltersConstans.ATTRIBUTE_PREFIX+ (filterCount)
         };
         sb = sb.append(alias).append(".").append(fieldName).append(" LIKE :").append(filterNames[0]).append(' ');
 
-        if (logger.getLevel() == Level.DEBUG)
+        if (logger.isDebugEnabled())
             logger.debug("where condition = " + sb.toString());
 
         return 1;
@@ -76,7 +75,7 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
         String svalue = "%" + value.replaceAll("%", "\\\\%") + "%";
 
         //logger.debug("parameter " + start + ": svalue = " + svalue);
-        query.setParameter("filter_"+(start++), svalue, type);
+        query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX + (start++), svalue, type);
         return 1;
     }
 

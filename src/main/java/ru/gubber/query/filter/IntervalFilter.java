@@ -1,6 +1,6 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.type.Type;
@@ -14,7 +14,7 @@ import java.util.List;
  * Класс реализующий интервальную филтрацию поля
  */
 public class IntervalFilter extends AbstractFilter implements SingleFilter {
-    private static Logger logger = Logger.getLogger(IntervalFilter.class);
+    private static Logger logger = LogManager.getLogger(IntervalFilter.class);
     /**
      * Алиас объекта на свойство которого накладывается фильтр
      */
@@ -109,24 +109,24 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
 
         if ((smaller != null) && (bigger != null)) {
             filterNames = new String[]{
-                    "filter_"+(filterCount++),
-                    "filter_"+(filterCount)
+                    FiltersConstans.ATTRIBUTE_PREFIX +(filterCount++),
+                    FiltersConstans.ATTRIBUTE_PREFIX +(filterCount)
             };
             sb = sb.append(alias).append(".").append(fieldName).append(" between :").append(filterNames[0]).append(" and :").append(filterNames[1]).append(" ");
         }
         else if (smaller == null) {
             filterNames = new String[]{
-                    "filter_"+(filterCount)
+                    FiltersConstans.ATTRIBUTE_PREFIX +(filterCount)
             };
             sb = sb.append(alias).append(".").append(fieldName).append(" <= :").append(filterNames[0]).append(" ");
         }
         else {
             filterNames = new String[]{
-                    "filter_"+(filterCount)
+                    FiltersConstans.ATTRIBUTE_PREFIX +(filterCount)
             };
             sb = sb.append(alias).append(".").append(fieldName).append(" >= :").append(filterNames[0]).append(" ");
         }
-        if (logger.getLevel() == Level.DEBUG)
+        if (logger.isDebugEnabled())
             logger.debug("where condition = " + sb.toString());
 
         return filterNames.length;
@@ -148,14 +148,14 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
             return 0;
         if ((smaller != null) && (bigger != null)) {
             //logger.debug("parameter " + start + ": value = " + smaller);
-            query.setParameter("filter_"+(start++), smaller, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start++), smaller, type);
             //logger.debug("parameter " + start + ": value = " + smaller);
-            query.setParameter("filter_"+(start), bigger, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start), bigger, type);
             return 2;
         } else if (smaller == null)
-            query.setParameter("filter_"+(start), bigger, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start), bigger, type);
         else
-            query.setParameter("filter_"+(start), smaller, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start), smaller, type);
 
         return 1;
     }

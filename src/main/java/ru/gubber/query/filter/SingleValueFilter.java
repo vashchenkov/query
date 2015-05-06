@@ -1,6 +1,6 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.type.StandardBasicTypes;
@@ -13,7 +13,7 @@ import java.util.List;
  * Класс реализующий фильтрацию списка по числовому полю
  */
 public class SingleValueFilter extends AbstractFilter implements SingleFilter {
-    private static Logger logger = Logger.getLogger(SingleValueFilter.class);
+    private static Logger logger = LogManager.getLogger(SingleValueFilter.class);
     private Object value = null;
     private Type type;
     private String fieldName;
@@ -50,7 +50,7 @@ public class SingleValueFilter extends AbstractFilter implements SingleFilter {
 
         if (!isEmpty()) {
             filterNames = new String[]{
-                    "filter_"+(filterCount)
+                    FiltersConstans.ATTRIBUTE_PREFIX+(filterCount)
             };
             sb.append(getAlias()).append(".").append(fieldName).append(" = :").append(filterNames[0]).append(" ");
         } else {
@@ -58,7 +58,7 @@ public class SingleValueFilter extends AbstractFilter implements SingleFilter {
             filterNames = new String[]{};
             sb.append(getAlias()).append(".").append(fieldName).append(" is null");
         }
-        if (logger.getLevel() == Level.DEBUG)
+        if (logger.isDebugEnabled())
             logger.debug("where condition = " + sb.toString());
         return filterNames.length;
     }
@@ -66,7 +66,7 @@ public class SingleValueFilter extends AbstractFilter implements SingleFilter {
     public int fillParameters(Query query, int start) {
         if (!isEmpty()) {
             //logger.debug("parameter " + start + ": value = " + value);
-            query.setParameter("filter_"+(start++), value, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX+(start++), value, type);
             return 1;
         } else
             return 0;
