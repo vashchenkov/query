@@ -20,6 +20,7 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
     protected String value = null;
     protected Type type = StandardBasicTypes.STRING;
     protected String fieldName;
+    protected boolean caseSensitive = true;
 
     public void setAlias(String alias) {
         this.alias = alias;
@@ -34,8 +35,13 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
      * @param value     - value
      */
     public SubstringFilter(String fieldName, String value) {
-        this.fieldName = fieldName;
+        this(fieldName, value, true);
+    }
+
+    public SubstringFilter(String fieldName, String value, boolean caseSensitive) {
         this.value = value;
+        this.fieldName = fieldName;
+        this.caseSensitive = caseSensitive;
     }
 
     public List getValues() {
@@ -58,7 +64,18 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
         filterNames = new String[]{
                 FiltersConstans.ATTRIBUTE_PREFIX+ (filterCount)
         };
-        sb = sb.append(alias).append(".").append(fieldName).append(" LIKE :").append(filterNames[0]).append(' ');
+        if (caseSensitive)
+            sb = sb.append(alias).append(".").append(fieldName);
+        else {
+            sb = sb.append("lower(").append(alias).append(".").append(fieldName).append(')');
+        }
+        sb = sb.append(" LIKE ");
+        if (caseSensitive)
+            sb = sb.append(":").append(filterNames[0]);
+        else {
+            sb = sb.append("lower(:").append(filterNames[0]).append(')');
+        }
+        sb = sb.append(' ');
 
         if (logger.isDebugEnabled())
             logger.debug("where condition = " + sb.toString());
