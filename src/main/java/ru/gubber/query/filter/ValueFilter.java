@@ -60,7 +60,7 @@ public class ValueFilter extends AbstractFilter {
         return 0;
         {
             filterNames = new String[values.size()];
-            sb.append(alias).append(".").append(fieldName).append(" IN (");
+            sb.append('(').append(alias).append(".").append(fieldName).append(" IN (");
             Iterator i = values.iterator();
             int indx =0;
             while (i.hasNext()) {
