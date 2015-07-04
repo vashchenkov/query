@@ -17,7 +17,7 @@ public class FieldSorter implements Sorter {
     }
 
     public StringBuilder addToQuery() {
-        return new StringBuilder(" order by ").append(PagedList.ALIAS ).append(".").append(attributeName).append(" ").append(getOrderString());
+        return new StringBuilder(" ").append(PagedList.ALIAS ).append(".").append(attributeName).append(" ").append(getOrderString());
     }
 
     public List sort(List items) {

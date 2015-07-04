@@ -29,8 +29,8 @@ public interface Sorter {
      *
      * @param items - List of items to sort
      * @return sorted List
-     */
     List sort(List items);
+     */
 
     void setOrder(int order);
     int getOrder();

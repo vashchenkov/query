@@ -91,7 +91,7 @@ public class PagedListByTree extends PagedList {
             }
         }
         updateTotalSize(session);
-        return sorter.sort(items);
+        return items;
     }
 
     public int getPageCount() {

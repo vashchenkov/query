@@ -25,7 +25,7 @@ public class PagedList {
     protected Class classToQuery;
     protected PageCounter counter = new PageCounter(DEFAULT_ITEMS_PER_PAGE);
     protected int currentPage = 0;
-    protected Sorter sorter = NullSorter.NULL_SORTER;
+    protected List<Sorter> sorters = new ArrayList<>();
     protected ru.gubber.query.filter.Filter filter = NullFilter.NULL_FILTER;
 
     private static final int DEFAULT_ITEMS_PER_PAGE = 10;
@@ -47,7 +47,7 @@ public class PagedList {
                 items = query.list();
             }
             updateTotalSize(session);
-            return sorter.sort(items);
+            return items;
         } catch (Throwable e) {
             logger.debug(e, e);
             throw e;
@@ -98,15 +98,32 @@ public class PagedList {
     }
 
     public Sorter getSorter() {
-        return sorter;
+        if (sorters.size() == 0)
+            return NullSorter.NULL_SORTER;
+        return sorters.get(0);
     }
 
     public void setSorter(Sorter sorter) {
-        this.sorter = sorter;
+        sorters.clear();
+        sorters.add(sorter);
+    }
+
+    public void addSorter(Sorter sorter) {
+        if (sorter instanceof NullSorter)
+            return;
+        sorters.add(sorter);
+    }
+
+    public List<Sorter> getSorters() {
+        return new ArrayList<>(sorters);
+    }
+
+    public void setSorters(List<Sorter> sorters) {
+        this.sorters = sorters;
     }
 
     protected StringBuilder getQueryFrom() {
-        return new StringBuilder(" FROM ").append( classToQuery.getName()).append(" AS ").append(ALIAS);
+        return new StringBuilder(" FROM ").append(classToQuery.getName()).append(" AS ").append(ALIAS);
     }
 
 
@@ -138,12 +155,12 @@ public class PagedList {
     }
 
     protected Query getQuery(Session session) throws HibernateException {
-        StringBuilder sb = new StringBuilder("SELECT ").append(ALIAS).append(getQueryFrom());
+        final StringBuilder sb = new StringBuilder("SELECT ").append(ALIAS).append(getQueryFrom());
         if (!filter.isEmpty()) {
             sb.append(" WHERE ");
             filter.appendFilterCondition(sb, 0);
         }
-        sb.append(sorter.addToQuery());
+        generateSorting(sb);
 
         Query query = session.createQuery(sb.toString());
         filter.fillParameters(query, 0);
@@ -151,6 +168,20 @@ public class PagedList {
         query.setFirstResult(currentPage * counter.getItemsPerPage());
         query.setMaxResults(counter.getItemsPerPage());
         return query;
+    }
+
+    void generateSorting(StringBuilder sb) {
+        if (sorters.size() > 0) {
+            sb.append(" order by");
+            final int[] indx = new int[]{0};
+            for (Sorter sorter : sorters) {
+                if (indx[0]++ > 0) {
+                    sb.append(",").append(sorter.addToQuery());
+                } else {
+                    sb.append(sorter.addToQuery());
+                }
+            }
+        }
     }
 
     public void setFilter(ru.gubber.query.filter.Filter filter) {
