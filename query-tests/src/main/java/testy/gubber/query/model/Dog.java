@@ -1,4 +1,4 @@
-package ru.gubber.query.test.model;
+package testy.gubber.query.model;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,8 +18,12 @@ public class Dog {
 	private String nickname;
 
 	@ManyToOne(targetEntity = Dog.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "PARENT_ID")
-	private Dog parent;
+	@JoinColumn(name = "MOTHER_ID")
+	private Dog mother;
+
+	@ManyToOne(targetEntity = Dog.class, fetch = FetchType.EAGER)
+	@JoinColumn(name = "FATHER_ID")
+	private Dog father;
 
 	@Column(name = "BIRTH_DATE")
 	private Date bithDate;
@@ -43,12 +47,12 @@ public class Dog {
 		this.nickname = nickname;
 	}
 
-	public Dog getParent() {
-		return parent;
+	public Dog getMother() {
+		return mother;
 	}
 
-	public void setParent(Dog parent) {
-		this.parent = parent;
+	public void setMother(Dog parent) {
+		this.mother = parent;
 	}
 
 	public Date getBithDate() {

@@ -1,4 +1,4 @@
-package ru.gubber.query.model;
+package testy.gubber.query.model;
 
 /**
  * Created by gubber on 04.07.2015.

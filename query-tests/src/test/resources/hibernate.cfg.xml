@@ -21,6 +21,6 @@
 	    <property name="show_sql">true</property>
 
 	    <property name="configClass">org.hibernate.cfg.Configuration</property>
-        <mapping class="ru.gubber.query.test.model.Dog"/>
+        <mapping class="testy.gubber.query.model.Dog"/>
     </session-factory>
 </hibernate-configuration>
