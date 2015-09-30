@@ -23,6 +23,10 @@ public class EmptyFieldFilter implements Filter{
 	 */
 	private String fieldName;
 
+	public EmptyFieldFilter(String fieldName) {
+		this.fieldName = fieldName;
+	}
+
 	@Override
 	public void setAlias(String alias) {
 		this.alias = alias;

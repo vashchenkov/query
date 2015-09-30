@@ -70,4 +70,12 @@ public class Dog {
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
+
+	public Dog getFather() {
+		return father;
+	}
+
+	public void setFather(Dog father) {
+		this.father = father;
+	}
 }
