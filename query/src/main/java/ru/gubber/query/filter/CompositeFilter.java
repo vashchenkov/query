@@ -62,7 +62,7 @@ public class CompositeFilter extends AbstractFilter {
      * Удаляет фильтр из подмножества фильтров данного множественного фильтра
      *
      * @param name имя фильтра в наборе подфильтров, который необходимо удалить
-     * @return Ссылку на объект типа {@link ru.gubber.query.filter.Filter}, который удалён из списка подфильтров
+     * @return Ссылку на объект типа {@link Filter}, который удалён из списка подфильтров
      */
     public Filter removeSubFilter(String name) {
         return (Filter) filters.remove(name);
@@ -72,7 +72,7 @@ public class CompositeFilter extends AbstractFilter {
      * Возвращает ссылку на фильтр из подмножества фильтров данного множественного фильтра
      *
      * @param name имя фильтра в наборе подфильтров, который необходимо получить
-     * @return Ссылку на объект типа {@link ru.gubber.query.filter.Filter}, null - если фильтр с таким названием не найден
+     * @return Ссылку на объект типа {@link Filter}, null - если фильтр с таким названием не найден
      */
     public Filter getSubFilter(String name) {
         if (filters.containsKey(name)) {

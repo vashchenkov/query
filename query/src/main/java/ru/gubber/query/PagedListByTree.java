@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Управляет выборкой объектов с возможностью постраничного разбиения, сортировки и фильтрации, основанный на дереве классов
- * {@link ru.gubber.query.ClassTree}
+ * {@link ClassTree}
  */
 public class PagedListByTree extends PagedList {
     private static Logger logger = LogManager.getLogger(PagedListByTree.class);
@@ -76,7 +76,7 @@ public class PagedListByTree extends PagedList {
     }
 
     /**
-     * @see ru.gubber.query.PagedList#getItems(org.hibernate.Session)
+     * @see PagedList#getItems(org.hibernate.Session)
      */
     public Collection getItems(Session session) throws HibernateException, JDBCException {
         Query query = getQuery(session);
@@ -203,7 +203,7 @@ public class PagedListByTree extends PagedList {
     }
 
     /**
-     * @see PagedList#setFilter(ru.gubber.query.filter.Filter)
+     * @see PagedList#setFilter(Filter)
      */
     public void setFilter(Filter filter) {
         this.filter = filter;
