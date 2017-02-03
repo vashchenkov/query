@@ -1,9 +1,9 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.type.ObjectType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +13,7 @@ import org.hibernate.type.ObjectType;
  */
 public class EnumFilter extends ValueFilter {
 
-    private final static Logger logger = LogManager.getLogger(EnumFilter.class);
+    private final static Logger logger = LoggerFactory.getLogger(EnumFilter.class);
 
     private String filterName;
     private boolean singleValue;

@@ -1,8 +1,8 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class CompositeFilter extends AbstractFilter {
 
-    private final Logger logger = LogManager.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     /**
      * Указывает логический оператор между всемя фильтрами входящими в данный множественный фильтр
      */

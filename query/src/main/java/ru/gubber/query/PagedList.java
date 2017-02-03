@@ -1,11 +1,11 @@
 package ru.gubber.query;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.gubber.query.filter.NullFilter;
 import ru.gubber.query.sorter.NullSorter;
 import ru.gubber.query.sorter.Sorter;
@@ -19,7 +19,7 @@ import java.util.List;
  * Управляет выборкой объектов с возможностью постраничного разбиения, сортировки и фильтрации.
  */
 public class PagedList {
-    private static Logger logger = LogManager.getLogger(PagedList.class);
+    private static Logger logger = LoggerFactory.getLogger(PagedList.class);
 
     public static final String ALIAS = "foo";
     protected Class classToQuery;
@@ -49,7 +49,7 @@ public class PagedList {
             updateTotalSize(session);
             return items;
         } catch (Throwable e) {
-            logger.debug(e, e);
+            logger.debug(e.getMessage(), e);
             throw e;
         }
     }
@@ -149,7 +149,7 @@ public class PagedList {
                 currentPage = counter.getItemCount() / counter.getItemsPerPage();
             }
         } catch (Throwable e) {
-            logger.debug(e, e);
+            logger.debug(e.getMessage(), e);
             throw e;
         }
     }

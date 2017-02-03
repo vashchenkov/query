@@ -1,8 +1,8 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class NullFilter extends AbstractFilter {
 
-    private final static Logger logger = LogManager.getLogger(NullFilter.class);
+    private final static Logger logger = LoggerFactory.getLogger(NullFilter.class);
 
     public static final Filter NULL_FILTER = new NullFilter();
 

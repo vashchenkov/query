@@ -1,8 +1,8 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.gubber.query.PagedList;
 
 import java.util.ArrayList;
@@ -12,14 +12,14 @@ import java.util.List;
  * Created by gubber on 29.09.2015.
  */
 public class EmptyFieldFilter implements Filter{
-	private static Logger logger = LogManager.getLogger(IntervalFilter.class);
+	private static Logger logger = LoggerFactory.getLogger(IntervalFilter.class);
 	/**
-	 * Алиас объекта на свойство которого накладывается фильтр
+	 * РђР»РёР°СЃ РѕР±СЉРµРєС‚Р° РЅР° СЃРІРѕР№СЃС‚РІРѕ РєРѕС‚РѕСЂРѕРіРѕ РЅР°РєР»Р°РґС‹РІР°РµС‚СЃСЏ С„РёР»СЊС‚СЂ
 	 */
 	private String alias = PagedList.ALIAS;
 
 	/**
-	 * имя фильтруемого поля
+	 * РёРјСЏ С„РёР»СЊС‚СЂСѓРµРјРѕРіРѕ РїРѕР»СЏ
 	 */
 	private String fieldName;
 
@@ -71,7 +71,7 @@ public class EmptyFieldFilter implements Filter{
 	public int appendFilterCondition(StringBuilder sb, int filterCount) {
 		if (isEmpty())
 			return 0;
-			sb = sb.append(alias).append(".").append(fieldName);
+		sb = sb.append(alias).append(".").append(fieldName);
 		sb = sb.append(" is null");
 		if (logger.isDebugEnabled())
 			logger.debug("where condition = " + sb.toString());

@@ -1,11 +1,11 @@
 package ru.gubber.query;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.gubber.query.filter.Filter;
 import ru.gubber.query.filter.NullFilter;
 import ru.gubber.query.sorter.NullSorter;
@@ -21,7 +21,7 @@ import java.util.List;
  * {@link ClassTree}
  */
 public class PagedListByTree extends PagedList {
-    private static Logger logger = LogManager.getLogger(PagedListByTree.class);
+    private static Logger logger = LoggerFactory.getLogger(PagedListByTree.class);
 
     /**
      * Алиас головного класса

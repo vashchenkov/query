@@ -1,9 +1,9 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.type.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.gubber.query.PagedList;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
  * Класс реализующий интервальную филтрацию поля
  */
 public class IntervalFilter extends AbstractFilter implements SingleFilter {
-    private static Logger logger = LogManager.getLogger(IntervalFilter.class);
+    private static Logger logger = LoggerFactory.getLogger(IntervalFilter.class);
     /**
      * Алиас объекта на свойство которого накладывается фильтр
      */

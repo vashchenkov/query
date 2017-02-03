@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<groupId>ru.gubber</groupId>
 	<artifactId>query-parent</artifactId>
-	<version>2.2.0-SNAPSHOT</version>
+	<version>2.3.0-SNAPSHOT</version>
 	<modules>
 		<module>../query</module>
 		<module>../query-tests</module>
@@ -12,10 +12,25 @@
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
 
+	<scm>
+		<developerConnection>scm:git:http://stash.gubber.ru/scm/query/query.git</developerConnection>
+	</scm>
+
 	<properties>
+		<slf4j.version>1.7.22</slf4j.version>
 		<version.log4j>1.2.14</version.log4j>
 		<version.hibernate>4.1.10.Final</version.hibernate>
 	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+			</plugin>
+		</plugins>
+	</build>
 
 	<distributionManagement>
 		<!-- use the following if you're not using a snapshot version. -->

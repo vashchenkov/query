@@ -1,10 +1,10 @@
 package ru.gubber.query.filter;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * Класс реализующий фильтрацию списка по числовому полю
  */
 public class SingleValueFilter extends AbstractFilter implements SingleFilter {
-    private static Logger logger = LogManager.getLogger(SingleValueFilter.class);
+    private static Logger logger = LoggerFactory.getLogger(SingleValueFilter.class);
     private Object value = null;
     private Type type;
     private String fieldName;
