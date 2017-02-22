@@ -75,11 +75,28 @@ public class CompositeFilter extends AbstractFilter {
      * @return Ссылку на объект типа {@link Filter}, null - если фильтр с таким названием не найден
      */
     public Filter getSubFilter(String name) {
-        if (filters.containsKey(name)) {
-            return (Filter) filters.get(name);
-        } else {
+        if (name == null)
             return new NullFilter();
+        String[] path = name.split("/");
+        return findFilterByPath(path);
+    }
+
+    private Filter findFilterByPath(String[] path) {
+        if (path.length == 1) {
+            String name = path[0];
+            if (filters.containsKey(name)) {
+                return filters.get(name);
+            } else {
+                return new NullFilter();
+            }
         }
+        String name = path[0];
+        Filter nextRootFilter = filters.get(name);
+        if (!(nextRootFilter instanceof CompositeFilter))
+            return new NullFilter();
+        String [] subPath = new String[path.length -1];
+        System.arraycopy(path, 1, subPath, 0, path.length - 1);
+        return ((CompositeFilter)nextRootFilter).findFilterByPath(subPath);
     }
 
     /**
