@@ -182,7 +182,7 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
 
     @Override
     public void addValue(Object value) {
-        if (!(value instanceof Comparable)) {
+        if ((value != null) && !(value instanceof Comparable)) {
             logger.warn("Can't add value which not implemented Comparable");
         } else {
             if (smaller == null) {

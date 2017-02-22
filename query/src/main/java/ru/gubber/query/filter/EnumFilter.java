@@ -23,7 +23,7 @@ public class EnumFilter extends ValueFilter {
     }
 
     public EnumFilter(String fieldName, String filterName, boolean singleValue) {
-        super(fieldName, new ObjectType());
+        super(fieldName, ObjectType.INSTANCE);
         this.singleValue = singleValue;
         this.filterName = filterName;
     }
