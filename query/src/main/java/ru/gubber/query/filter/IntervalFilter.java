@@ -36,6 +36,9 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
      */
     private String fieldName;
 
+    private boolean smallerValueSet = false;
+    private boolean biggerValueSet = false;
+
     public void setAlias(String alias) {
         this.alias = alias;
     }
@@ -55,6 +58,8 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
         this.smaller = smaller;
         this.bigger = bigger;
         this.fieldName = fieldName;
+        smallerValueSet = smaller !=null;
+        biggerValueSet = bigger != null;
     }
 
     public Filter getSubFilter(String name) {
@@ -85,6 +90,8 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
         smaller = null;
         bigger = null;
         changed = false;
+        smallerValueSet = false;
+        biggerValueSet = false;
     }
 
     /**
@@ -185,11 +192,13 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
         if ((value != null) && !(value instanceof Comparable)) {
             logger.warn("Can't add value which not implemented Comparable");
         } else {
-            if (smaller == null) {
+            if  (!smallerValueSet ) {
                 smaller = (Comparable) value;
+                smallerValueSet = true;
                 changed = true;
-            } else if (bigger == null) {
+            } else if (!biggerValueSet) {
                 bigger = (Comparable) value;
+                biggerValueSet = true;
                 changed = true;
             } else {
                 logger.warn("Can't more then 2 values to IntervalValue");
