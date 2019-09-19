@@ -24,6 +24,10 @@
 			<name>m2.gubber.ru-releases</name>
 			<url>http://m2.gubber.ru/artifactory/libs-releases-local</url>
 		</repository>
+
+
+
+
 		<!-- use the following if you ARE using a snapshot version. -->
 		<snapshotRepository>
 			<id>m2.gubber.ru</id>
