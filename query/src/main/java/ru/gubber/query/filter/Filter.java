@@ -4,8 +4,7 @@
 
 package ru.gubber.query.filter;
 
-import org.hibernate.Query;
-
+import javax.persistence.Query;
 import java.util.List;
 
 /**

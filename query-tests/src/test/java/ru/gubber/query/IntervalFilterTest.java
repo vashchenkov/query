@@ -1,7 +1,6 @@
 package ru.gubber.query;
 
 import junit.framework.TestCase;
-import org.hibernate.type.IntegerType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -16,7 +15,7 @@ public class IntervalFilterTest extends TestCase{
 
 	@Test
 	public void twoIntValueAddTest() {
-		IntervalFilter intervalFilter = new IntervalFilter("someField", IntegerType.INSTANCE, null, null);
+		IntervalFilter intervalFilter = new IntervalFilter("someField", null, null);
 		intervalFilter.addValue(5);
 		intervalFilter.addValue(10);
 
@@ -26,7 +25,7 @@ public class IntervalFilterTest extends TestCase{
 
 	@Test
 	public void oneIntValueAddTest() {
-		IntervalFilter intervalFilter = new IntervalFilter("someField", IntegerType.INSTANCE, null, null);
+		IntervalFilter intervalFilter = new IntervalFilter("someField", null, null);
 		intervalFilter.addValue(5);
 
 		assertEquals(5, intervalFilter.getSmallerValue());
@@ -35,7 +34,7 @@ public class IntervalFilterTest extends TestCase{
 
 	@Test
 	public void nullAndIntValueAddTest() {
-		IntervalFilter intervalFilter = new IntervalFilter("someField", IntegerType.INSTANCE, null, null);
+		IntervalFilter intervalFilter = new IntervalFilter("someField", null, null);
 		intervalFilter.addValue(null);
 		intervalFilter.addValue(5);
 
@@ -46,7 +45,7 @@ public class IntervalFilterTest extends TestCase{
 
 	@Test
 	public void threeIntValueAddTest() {
-		IntervalFilter intervalFilter = new IntervalFilter("someField", IntegerType.INSTANCE, null, null);
+		IntervalFilter intervalFilter = new IntervalFilter("someField", null, null);
 		intervalFilter.addValue(5);
 		intervalFilter.addValue(10);
 		intervalFilter.addValue(15);

@@ -2,14 +2,14 @@ package ru.gubber.query;
 
 import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.gubber.query.filter.NullFilter;
 import ru.gubber.query.sorter.NullSorter;
 import ru.gubber.query.sorter.Sorter;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -39,12 +39,12 @@ public class PagedList {
         this.filter = filter;
     }
 
-    public Collection getItems(Session session) throws HibernateException, JDBCException {
+    public Collection getItems(EntityManager session) throws HibernateException, JDBCException {
         try {
             Query query = getQuery(session);
             List items = new ArrayList();
             if (query != null) {
-                items = query.list();
+                items = query.getResultList();
             }
             updateTotalSize(session);
             return items;
@@ -131,7 +131,7 @@ public class PagedList {
      * ну типа узнаёт общее число объектов, удовлетворяющих фильтру
      * и апдейтит текущую страницу (проверяет на выход за границу)
      */
-    protected void updateTotalSize(Session session) throws HibernateException, JDBCException {
+    protected void updateTotalSize(EntityManager session) throws HibernateException, JDBCException {
         try {
             StringBuilder sb = new StringBuilder("SELECT COUNT(").append(ALIAS).append(")").append(getQueryFrom());
             if (!filter.isEmpty()) {
@@ -141,7 +141,7 @@ public class PagedList {
             Query query = session.createQuery(sb.toString());
             filter.fillParameters(query, 0);
 
-            Iterator i = query.list().iterator();
+            Iterator i = query.getResultList().iterator();
             if (i.hasNext()) {
                 counter.setItemCount(((Long) i.next()).intValue());
             }
@@ -154,7 +154,7 @@ public class PagedList {
         }
     }
 
-    protected Query getQuery(Session session) throws HibernateException {
+    protected Query getQuery(EntityManager session) throws HibernateException {
         final StringBuilder sb = new StringBuilder("SELECT ").append(ALIAS).append(getQueryFrom());
         if (!filter.isEmpty()) {
             sb.append(" WHERE ");

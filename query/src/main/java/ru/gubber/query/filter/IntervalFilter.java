@@ -1,11 +1,10 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.Query;
-import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.gubber.query.PagedList;
 
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,10 +18,6 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
      * Алиас объекта на свойство которого накладывается фильтр
      */
     private String alias = PagedList.ALIAS;
-    /**
-     * Тип свойства
-     */
-    private Type type;
     /**
      * минимальное значение
      */
@@ -53,8 +48,7 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
         return null;
     }
 
-    public IntervalFilter(String fieldName, Type type, Comparable smaller, Comparable bigger) {
-        this.type = type;
+    public IntervalFilter(String fieldName, Comparable smaller, Comparable bigger) {
         this.smaller = smaller;
         this.bigger = bigger;
         this.fieldName = fieldName;
@@ -155,14 +149,14 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
             return 0;
         if ((smaller != null) && (bigger != null)) {
             //logger.debug("parameter " + start + ": value = " + smaller);
-            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start++), smaller, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start++), smaller);
             //logger.debug("parameter " + start + ": value = " + smaller);
-            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start), bigger, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start), bigger);
             return 2;
         } else if (smaller == null)
-            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start), bigger, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start), bigger);
         else
-            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start), smaller, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX +(start), smaller);
 
         return 1;
     }
@@ -181,10 +175,6 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
 
     public Object getBiggerValue() {
         return bigger;
-    }
-
-    public Type getType() {
-        return type;
     }
 
     @Override

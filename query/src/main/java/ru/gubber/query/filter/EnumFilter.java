@@ -1,9 +1,10 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.Query;
 import org.hibernate.type.ObjectType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.persistence.Query;
 
 /**
  * Created with IntelliJ IDEA.

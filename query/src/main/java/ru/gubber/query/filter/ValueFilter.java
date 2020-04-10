@@ -1,11 +1,10 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.Query;
-import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.gubber.query.PagedList;
 
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,7 +16,6 @@ public class ValueFilter extends AbstractFilter {
     private static Logger logger = LoggerFactory.getLogger(ValueFilter.class);
     protected String alias = PagedList.ALIAS;
     protected ArrayList values = new ArrayList();
-    protected Type type;
     protected String fieldName;
 
     public void setAlias(String alias) {
@@ -28,14 +26,12 @@ public class ValueFilter extends AbstractFilter {
         return null;
     }
 
-    public ValueFilter(String fieldName, Type type) {
+    public ValueFilter(String fieldName) {
         this.fieldName = fieldName;
-        this.type = type;
     }
 
-    public ValueFilter(String fieldName, Type type, Object value) {
+    public ValueFilter(String fieldName, Object value) {
         this.fieldName = fieldName;
-        this.type = type;
         values.add(value);
     }
 
@@ -85,9 +81,9 @@ public class ValueFilter extends AbstractFilter {
         while (i.hasNext()) {
             Object value = i.next();
             if (logger.isDebugEnabled()) {
-                logger.debug("set " + FiltersConstans.ATTRIBUTE_PREFIX + (start) + "=" + value + ".Type is " + type.getClass().getName());
+                logger.debug("set " + FiltersConstans.ATTRIBUTE_PREFIX + (start) + "=" + value + "." );
             }
-            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX + (start++), value, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX + (start++), value);
         }
         return values.size();
     }

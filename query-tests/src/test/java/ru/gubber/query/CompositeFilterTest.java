@@ -1,7 +1,6 @@
 package ru.gubber.query;
 
 import junit.framework.TestCase;
-import org.hibernate.type.DateType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -15,7 +14,7 @@ import ru.gubber.query.filter.*;
 public class CompositeFilterTest extends TestCase {
 	private final static EmptyFieldFilter testFieldFilter = new EmptyFieldFilter("testField");
 	private static final String SIMPLE_FILTER = "simpleFilter";
-	private static final IntervalFilter intervalFilter = new IntervalFilter("simpleComparableValue", DateType.INSTANCE, null, null);
+	private static final IntervalFilter intervalFilter = new IntervalFilter("simpleComparableValue", null, null);
 	private static final String SECOND_ROOT_FILTER = "secondRoot";
 	private static final String INTERVAL_FILTER = "intervalFilter";
 

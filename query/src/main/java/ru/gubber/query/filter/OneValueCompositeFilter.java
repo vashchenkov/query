@@ -1,8 +1,7 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.Query;
-import org.hibernate.type.Type;
 
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +13,10 @@ import java.util.List;
  */
 public class OneValueCompositeFilter extends CompositeFilter implements SingleFilter {
 
-    private Type type;
     List values = new ArrayList();
     private boolean allowNulls = false;
 
-    public OneValueCompositeFilter(Type type) {
-        this.type = type;
-    }
-
-    public Type getType() {
-        return type;
+    public OneValueCompositeFilter() {
     }
 
     public void setAllowNulls(boolean allowNulls) {

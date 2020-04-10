@@ -1,6 +1,5 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.type.Type;
 
 /**
  *
@@ -13,8 +12,4 @@ public interface SingleFilter extends Filter{
      */
     public Object getValue();
 
-    /**
-     * @return Его тип
-     */
-    public Type getType();
 }

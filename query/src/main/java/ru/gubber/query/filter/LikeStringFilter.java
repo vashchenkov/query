@@ -1,8 +1,9 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.persistence.Query;
 
 /**
  * Like фильтр
@@ -17,7 +18,7 @@ public class LikeStringFilter extends SubstringFilter {
     public int fillParameters(Query query, int start) {
         if (isEmpty()) return 0;
         //logger.debug("parameter" + start + ": value = " + value);
-        query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX+(start++), value, type);
+        query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX+(start++), value);
         return 1;
     }
 }

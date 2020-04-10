@@ -1,11 +1,9 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.Query;
-import org.hibernate.type.StandardBasicTypes;
-import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.Query;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,23 +13,15 @@ import java.util.List;
 public class SingleValueFilter extends AbstractFilter implements SingleFilter {
     private static Logger logger = LoggerFactory.getLogger(SingleValueFilter.class);
     private Object value = null;
-    private Type type;
     private String fieldName;
 
-    public SingleValueFilter(String fieldName, Type type, Object value) {
+    public SingleValueFilter(String fieldName, Object value) {
         if (value == null)
             logger.warn("ne nado null v value sovat");
         this.fieldName = fieldName;
-        this.type = type;
         this.value = value;
     }
 
-    /**
-     * Create filter with given fieldName, value and type={@link org.hibernate.type.StandardBasicTypes.INTEGER}.
-     */
-    public SingleValueFilter(String fieldName, int value) {
-        this(fieldName, StandardBasicTypes.INTEGER, new Integer(value));
-    }
 
     public List getValues() {
         return Collections.singletonList(value);
@@ -66,7 +56,7 @@ public class SingleValueFilter extends AbstractFilter implements SingleFilter {
     public int fillParameters(Query query, int start) {
         if (!isEmpty()) {
             //logger.debug("parameter " + start + ": value = " + value);
-            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX+(start++), value, type);
+            query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX+(start++), value);
             return 1;
         } else
             return 0;
@@ -86,10 +76,6 @@ public class SingleValueFilter extends AbstractFilter implements SingleFilter {
 
     public Object getValue() {
         return value;
-    }
-
-    public Type getType() {
-        return type;
     }
 
     @Override

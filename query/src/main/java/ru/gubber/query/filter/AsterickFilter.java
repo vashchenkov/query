@@ -1,8 +1,9 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.persistence.Query;
 
 /**
  * Класс для фильтрации списка по страковым значениям
@@ -30,7 +31,7 @@ public class AsterickFilter extends SubstringFilter {
         String svalue = value.replaceAll("%", "\\\\%").replaceAll("\\*", "%");
 
         //logger.debug("parameter " + start + ": svalue = " + svalue);
-        query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX + (start++), svalue, type);
+        query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX + (start++), svalue);
         return 1;
     }
 

@@ -1,12 +1,10 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.Query;
-import org.hibernate.type.StandardBasicTypes;
-import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.gubber.query.PagedList;
 
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +16,6 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
     private static Logger logger = LoggerFactory.getLogger(SubstringFilter.class);
     protected String alias = PagedList.ALIAS;
     protected String value = null;
-    protected Type type = StandardBasicTypes.STRING;
     protected String fieldName;
     protected boolean caseSensitive = true;
 
@@ -92,7 +89,7 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
         String svalue = "%" + value.replaceAll("%", "\\\\%") + "%";
 
         //logger.debug("parameter " + start + ": svalue = " + svalue);
-        query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX + (start++), svalue, type);
+        query.setParameter(FiltersConstans.ATTRIBUTE_PREFIX + (start++), svalue);
         return 1;
     }
 
@@ -102,10 +99,6 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
 
     public Object getValue() {
         return value;
-    }
-
-    public Type getType() {
-        return type;
     }
 
     public Filter getSubFilter(String name) {
