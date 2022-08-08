@@ -31,9 +31,6 @@ public class PagedListTest{
 		SessionFactory sessionFactory = new Configuration().configure()
 				.buildSessionFactory();
 		session = sessionFactory.openSession();
-		Dog o = new Dog();
-		session.persist(o);
-		session.flush();
 
 		List list = session.createQuery("from Dog").list();
 		assertNotNull(list);

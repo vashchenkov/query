@@ -4,16 +4,7 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
-import org.mockito.Mockito;
 import ru.gubber.query.filter.*;
-import testy.gubber.query.model.Dog;
-
-import javax.persistence.Query;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 /**
  * Тестирование корректной работы композитного фильтра
