@@ -27,7 +27,7 @@ public class NullFilter extends AbstractFilter {
         return true;
     }
 
-    public int appendFilterCondition(StringBuilder sb, int filterCount) {
+    public int appendFilterCondition(StringBuilder sb, int attributesCount) {
         return 0;
     }
 

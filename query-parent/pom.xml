@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<groupId>ru.gubber</groupId>
 	<artifactId>query-parent</artifactId>
-	<version>3.0.0</version>
+	<version>3.1.0</version>
 	<modules>
 		<module>../query</module>
 		<module>../query-tests</module>
@@ -35,16 +35,11 @@
 	<distributionManagement>
 		<!-- use the following if you're not using a snapshot version. -->
 		<repository>
-			<id>m2.gubber.ru</id>
-			<name>m2.gubber.ru-releases</name>
-			<url>http://m2.gubber.ru/artifactory/libs-releases-local</url>
+			<id>COMETA_REPO</id>
+			<name>COMETA_REPO</name>
+			<url>https://artifactory.raiffeisen.ru:443/artifactory/cometa-releases-mvn</url>
 		</repository>
 		<!-- use the following if you ARE using a snapshot version. -->
-		<snapshotRepository>
-			<id>m2.gubber.ru</id>
-			<name>m2.gubber.ru-snapshots</name>
-			<url>http://m2.gubber.ru/artifactory/plugins-snapshots-local</url>
-		</snapshotRepository>
 	</distributionManagement>
 
 </project>

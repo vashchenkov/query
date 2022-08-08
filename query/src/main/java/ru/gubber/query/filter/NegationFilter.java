@@ -34,16 +34,16 @@ public class NegationFilter extends AbstractFilter {
         return filter.isEmpty();
     }
 
-    public int appendFilterCondition(StringBuilder sb, int filterCount) {
+    public int appendFilterCondition(StringBuilder sb, int attributesCount) {
         if (!filter.isEmpty())
             sb = sb.append("NOT (");
-        filterCount = filterCount + filter.appendFilterCondition(sb, filterCount);
+        attributesCount = attributesCount + filter.appendFilterCondition(sb, attributesCount);
         sb.append(")");
 
         if (logger.isDebugEnabled())
             logger.debug("where condition = " + sb.toString());
 
-        return filterCount;
+        return attributesCount;
     }
 
     public int fillParameters(Query query, int start) {

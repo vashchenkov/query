@@ -101,29 +101,29 @@ public class IntervalFilter extends AbstractFilter implements SingleFilter {
      * Генерирует и возвращает строку для фильтрации запроса
      *
      * @param sb
-     * @param filterCount
+     * @param attributesCount
      * @return сгенерированную строку для фильтрации запроса
      */
-    public int appendFilterCondition(StringBuilder sb, int filterCount) {
+    public int appendFilterCondition(StringBuilder sb, int attributesCount) {
         if (isEmpty())
             return 0;
 
         if ((smaller != null) && (bigger != null)) {
             filterNames = new String[]{
-                    FiltersConstans.ATTRIBUTE_PREFIX +(filterCount++),
-                    FiltersConstans.ATTRIBUTE_PREFIX +(filterCount)
+                    FiltersConstans.ATTRIBUTE_PREFIX +(attributesCount++),
+                    FiltersConstans.ATTRIBUTE_PREFIX +(attributesCount)
             };
             sb = sb.append(alias).append(".").append(fieldName).append(" between :").append(filterNames[0]).append(" and :").append(filterNames[1]).append(" ");
         }
         else if (smaller == null) {
             filterNames = new String[]{
-                    FiltersConstans.ATTRIBUTE_PREFIX +(filterCount)
+                    FiltersConstans.ATTRIBUTE_PREFIX +(attributesCount)
             };
             sb = sb.append(alias).append(".").append(fieldName).append(" <= :").append(filterNames[0]).append(" ");
         }
         else {
             filterNames = new String[]{
-                    FiltersConstans.ATTRIBUTE_PREFIX +(filterCount)
+                    FiltersConstans.ATTRIBUTE_PREFIX +(attributesCount)
             };
             sb = sb.append(alias).append(".").append(fieldName).append(" >= :").append(filterNames[0]).append(" ");
         }

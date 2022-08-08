@@ -12,12 +12,10 @@ import java.util.List;
  */
 public class SingleValueFilter extends AbstractFilter implements SingleFilter {
     private static Logger logger = LoggerFactory.getLogger(SingleValueFilter.class);
-    private Object value = null;
+    private Object value;
     private String fieldName;
 
     public SingleValueFilter(String fieldName, Object value) {
-        if (value == null)
-            logger.warn("ne nado null v value sovat");
         this.fieldName = fieldName;
         this.value = value;
     }
@@ -36,11 +34,11 @@ public class SingleValueFilter extends AbstractFilter implements SingleFilter {
         return value == null;
     }
 
-    public int appendFilterCondition(StringBuilder sb, int filterCount) {
+    public int appendFilterCondition(StringBuilder sb, int attributesCount) {
 
         if (!isEmpty()) {
             filterNames = new String[]{
-                    FiltersConstans.ATTRIBUTE_PREFIX+(filterCount)
+                    FiltersConstans.ATTRIBUTE_PREFIX+(attributesCount)
             };
             sb.append(getAlias()).append(".").append(fieldName).append(" = :").append(filterNames[0]).append(" ");
         } else {

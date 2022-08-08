@@ -146,9 +146,9 @@ public class CompositeFilter extends AbstractFilter {
      *
      * @return значение фильтров
      * @param sb
-     * @param filterCount
+     * @param attributesCount
      */
-    public int appendFilterCondition(StringBuilder sb, int filterCount) {
+    public int appendFilterCondition(StringBuilder sb, int attributesCount) {
         if (isEmpty())  {
             // return "TRUE"; // Hibernate does not have true?
             sb.append("(1 = 1)");
@@ -156,6 +156,7 @@ public class CompositeFilter extends AbstractFilter {
         }
         sb.append("(");
         boolean first = true;
+        int pos = attributesCount;
         Iterator i = filters.values().iterator();
         while (i.hasNext()) {
             Filter filter = (Filter) i.next();
@@ -164,15 +165,14 @@ public class CompositeFilter extends AbstractFilter {
                 sb.append(" ").append(operator).append(" ");
             }
             if (!filter.isEmpty()) {
-//                sb = sb.append();
-                filterCount = filterCount + filter.appendFilterCondition(sb, filterCount);
+                pos+= filter.appendFilterCondition(sb, pos);
             }
             first = first && filter.isEmpty();
         }
         sb.append(")");
         if (logger.isDebugEnabled())
-            logger.debug("where condition = " + sb.toString());
-        return filterCount;
+            logger.debug("where condition = " + sb);
+        return pos - attributesCount;
     }
 
     /**

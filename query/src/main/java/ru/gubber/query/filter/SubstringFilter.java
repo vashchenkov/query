@@ -55,11 +55,11 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
         return value == null || value.equals("");
     }
 
-    public int appendFilterCondition(StringBuilder sb, int filterCount) {
+    public int appendFilterCondition(StringBuilder sb, int attributesCount) {
         if (isEmpty())
             return 0;
         filterNames = new String[]{
-                FiltersConstans.ATTRIBUTE_PREFIX+ (filterCount)
+                FiltersConstans.ATTRIBUTE_PREFIX+ (attributesCount)
         };
         if (caseSensitive)
             sb = sb.append(alias).append(".").append(fieldName);

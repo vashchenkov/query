@@ -51,7 +51,7 @@ public class ValueFilter extends AbstractFilter {
         return values.isEmpty();
     }
 
-    public int appendFilterCondition(StringBuilder sb, int filterCount) {
+    public int appendFilterCondition(StringBuilder sb, int attributesCount) {
         if (values.isEmpty())
         return 0;
         {
@@ -61,7 +61,7 @@ public class ValueFilter extends AbstractFilter {
             int indx =0;
             while (i.hasNext()) {
                 i.next();
-                filterNames[indx] = ":"+FiltersConstans.ATTRIBUTE_PREFIX+(filterCount + indx);
+                filterNames[indx] = ":"+FiltersConstans.ATTRIBUTE_PREFIX+(attributesCount + indx);
                 sb.append(filterNames[indx++]);
                 if (i.hasNext()) {
                     sb.append(", ");

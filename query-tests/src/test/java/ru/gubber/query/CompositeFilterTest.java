@@ -4,7 +4,16 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
+import org.mockito.Mockito;
 import ru.gubber.query.filter.*;
+import testy.gubber.query.model.Dog;
+
+import javax.persistence.Query;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * Тестирование корректной работы композитного фильтра
@@ -79,6 +88,56 @@ public class CompositeFilterTest extends TestCase {
 		Filter testFilter = root.getSubFilter(null);
 
 		assertTrue("Should be found NullFilter", testFilter instanceof NullFilter);
+	}
+
+	@Test
+	public void shouldCalculate4AttributesWhenThreeFiltersPassIntoCompositeFilterWithCompositeFilterIsNotFirst() {
+		CompositeFilter rootFilter = new CompositeFilter();
+
+		IntervalFilter intF = new IntervalFilter("bithDate", 0, null);
+		rootFilter.addFilter("birthFilter", intF);
+
+		OneValueCompositeFilter nameFilter = new OneValueCompositeFilter();
+		AsterickFilter fnFilter = new AsterickFilter("fullname", "xx");
+		AsterickFilter nnFilter = new AsterickFilter("nickname", "xx");
+		nameFilter.addFilter("fullnameFilter", fnFilter);
+		nameFilter.addFilter("nicknameFilter", nnFilter);
+
+		nameFilter.addValue("xxx");
+		rootFilter.addFilter("identityFilter", nameFilter);
+
+		ValueFilter aliveFilter = new ValueFilter("alive");
+		aliveFilter.addValue(true);
+		rootFilter.addFilter("aliveFilter", aliveFilter);
+
+		StringBuilder sb = new StringBuilder();
+		int filterCondition = rootFilter.appendFilterCondition(sb, 0);
+		assertEquals(4, filterCondition );
+	}
+
+	@Test
+	public void shouldCalculate4AttributesWhenThreeFiltersPassIntoCompositeFilterWithCompositeFilterIsFirst() {
+		CompositeFilter rootFilter = new CompositeFilter();
+
+		OneValueCompositeFilter nameFilter = new OneValueCompositeFilter();
+		AsterickFilter fnFilter = new AsterickFilter("fullname", "xx");
+		AsterickFilter nnFilter = new AsterickFilter("nickname", "xx");
+		nameFilter.addFilter("fullnameFilter", fnFilter);
+		nameFilter.addFilter("nicknameFilter", nnFilter);
+
+		nameFilter.addValue("xxx");
+		rootFilter.addFilter("identityFilter", nameFilter);
+
+		IntervalFilter intF = new IntervalFilter("bithDate", 0, null);
+		rootFilter.addFilter("birthFilter", intF);
+
+		ValueFilter aliveFilter = new ValueFilter("alive");
+		aliveFilter.addValue(true);
+		rootFilter.addFilter("aliveFilter", aliveFilter);
+
+		StringBuilder sb = new StringBuilder();
+		int filterCondition = rootFilter.appendFilterCondition(sb, 0);
+		assertEquals(4, filterCondition );
 	}
 
 	private CompositeFilter createSimpleCompositeFilter() {

@@ -70,9 +70,9 @@ public interface Filter {
      *
      * @return String that can be used in WHERE
      * @param stringBuilder
-     * @param filterCount
+     * @param attributesCount
      */
-    int appendFilterCondition(StringBuilder stringBuilder, int filterCount);
+    int appendFilterCondition(StringBuilder stringBuilder, int attributesCount);
 
     /**
      * Заполнить параметры запроса, начиная с некоторого параметра

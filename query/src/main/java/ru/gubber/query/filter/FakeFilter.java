@@ -32,7 +32,7 @@ public class FakeFilter extends AbstractFilter {
         return false;
     }
 
-    public int appendFilterCondition(StringBuilder sb, int filterCount) {
+    public int appendFilterCondition(StringBuilder sb, int attributesCount) {
         sb.append("1 = 1");
         return 0;
     }

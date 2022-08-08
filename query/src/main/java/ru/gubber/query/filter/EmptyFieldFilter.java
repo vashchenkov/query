@@ -68,7 +68,7 @@ public class EmptyFieldFilter implements Filter{
 	}
 
 	@Override
-	public int appendFilterCondition(StringBuilder sb, int filterCount) {
+	public int appendFilterCondition(StringBuilder sb, int attributesCount) {
 		if (isEmpty())
 			return 0;
 		sb = sb.append(alias).append(".").append(fieldName);

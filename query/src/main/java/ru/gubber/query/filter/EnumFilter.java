@@ -30,13 +30,13 @@ public class EnumFilter extends ValueFilter {
     }
 
     @Override
-    public int appendFilterCondition(StringBuilder sb, int filterCount) {
+    public int appendFilterCondition(StringBuilder sb, int attributesCount) {
         if (singleValue) {
             if (values.isEmpty()) {
                 return 0;
             }
             filterNames = new String[]{
-                    FiltersConstans.ATTRIBUTE_PREFIX + (filterCount)
+                    FiltersConstans.ATTRIBUTE_PREFIX + (attributesCount)
             };
             sb.append(alias).append(".").append(fieldName).append("=").append(":").append(filterNames[0]).append(' ');
             if (logger.isDebugEnabled())
@@ -44,7 +44,7 @@ public class EnumFilter extends ValueFilter {
 
             return 1;
         }
-        return super.appendFilterCondition(sb, filterCount);
+        return super.appendFilterCondition(sb, attributesCount);
     }
 
     @Override
