@@ -62,9 +62,9 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
                 FiltersConstans.ATTRIBUTE_PREFIX+ (attributesCount)
         };
         if (caseSensitive)
-            sb = sb.append(alias).append(".").append(fieldName);
+            sb = insertFieldInuery(sb);
         else {
-            sb = sb.append("lower(").append(alias).append(".").append(fieldName).append(')');
+            sb = sb.append("lower(").append(insertFieldInuery(sb)).append(')');
         }
         sb = sb.append(" LIKE ");
         if (caseSensitive)
@@ -78,6 +78,10 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
             logger.debug("where condition = " + sb.toString());
 
         return 1;
+    }
+
+    private StringBuilder insertFieldInuery(StringBuilder sb) {
+        return sb.append("cast (").append(alias).append(".").append(fieldName).append(" as string)");
     }
 
     public void fillParameters(Query query) {
