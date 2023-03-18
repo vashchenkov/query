@@ -4,7 +4,7 @@
 
 package ru.gubber.query.filter;
 
-import javax.persistence.Query;
+import jakarta.persistence.Query;
 import java.util.List;
 
 /**

@@ -3,7 +3,7 @@ package ru.gubber.query.filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.Query;
+import jakarta.persistence.Query;
 
 /**
  * Like фильтр

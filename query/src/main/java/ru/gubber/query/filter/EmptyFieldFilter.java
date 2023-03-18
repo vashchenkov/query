@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.gubber.query.PagedList;
 
-import javax.persistence.Query;
+import jakarta.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 

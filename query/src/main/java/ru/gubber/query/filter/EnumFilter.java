@@ -1,10 +1,9 @@
 package ru.gubber.query.filter;
 
-import org.hibernate.type.ObjectType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.Query;
+import jakarta.persistence.Query;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +23,7 @@ public class EnumFilter extends ValueFilter {
     }
 
     public EnumFilter(String fieldName, String filterName, boolean singleValue) {
-        super(fieldName, ObjectType.INSTANCE);
+        super(fieldName, null);
         this.singleValue = singleValue;
         this.filterName = filterName;
     }

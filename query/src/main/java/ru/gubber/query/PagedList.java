@@ -8,8 +8,8 @@ import ru.gubber.query.filter.NullFilter;
 import ru.gubber.query.sorter.NullSorter;
 import ru.gubber.query.sorter.Sorter;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;

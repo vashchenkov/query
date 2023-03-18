@@ -4,18 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.gubber.query.PagedList;
 
-import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import jakarta.persistence.Query;
+
+import java.util.*;
 
 /**
  */
 public class ValueFilter extends AbstractFilter {
-    private static Logger logger = LoggerFactory.getLogger(ValueFilter.class);
+    private final static Logger logger = LoggerFactory.getLogger(ValueFilter.class);
     protected String alias = PagedList.ALIAS;
-    protected ArrayList values = new ArrayList();
+    protected List values = new LinkedList();
     protected String fieldName;
 
     public void setAlias(String alias) {
