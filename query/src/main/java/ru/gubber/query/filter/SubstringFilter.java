@@ -59,12 +59,12 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
         if (isEmpty())
             return 0;
         filterNames = new String[]{
-                FiltersConstans.ATTRIBUTE_PREFIX+ (attributesCount)
+            FiltersConstans.ATTRIBUTE_PREFIX+ (attributesCount)
         };
         if (caseSensitive)
-            sb = insertFieldInuery(sb);
+            sb = sb.append(wrapCastToString(fieldName, alias));
         else {
-            sb = sb.append("lower(").append(insertFieldInuery(sb)).append(')');
+            sb = sb.append("lower(").append(wrapCastToString(fieldName, alias)).append(')');
         }
         sb = sb.append(" LIKE ");
         if (caseSensitive)
@@ -80,8 +80,14 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
         return 1;
     }
 
-    private StringBuilder insertFieldInuery(StringBuilder sb) {
-        return sb.append("cast (").append(alias).append(".").append(fieldName).append(" as string)");
+    private String wrapCastToString(String fieldName, String alias) {
+        return new StringBuilder()
+            .append("cast (")
+            .append(alias)
+            .append(".")
+            .append(fieldName)
+            .append(" as string)")
+            .toString();
     }
 
     public void fillParameters(Query query) {
@@ -113,7 +119,7 @@ public class SubstringFilter extends AbstractFilter implements SingleFilter {
         return Collections.EMPTY_LIST;
     }
 
-     @Override
+    @Override
     public void addValue(Object value) {
         this.value = (String) value;
     }
