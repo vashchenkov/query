@@ -41,6 +41,10 @@
 			<name>COMETA_REPO</name>
 			<url>https://artifactory.raiffeisen.ru:443/artifactory/cometa-releases-mvn</url>
 		</repository>
+
+
+
+
 		<!-- use the following if you ARE using a snapshot version. -->
 	</distributionManagement>
 
